@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>南京旅行咨询网</title>
+    <link rel="shortcut icon" href="/caps/image/logo1.png" type="/image/x-icon" />
+    <link rel="stylesheet" href="/caps/css/bootstrap.min.css" type="text/css" />
+    <link href="/caps/css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/caps/css/common.css" rel="stylesheet" type="text/css" />
+    <script src="/caps/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- 引入header.html -->
+    <th:block th:include="user/header :: header"></th:block>
+
+
+    <!-- 轮播图 -->
+    <div class="container-fluid">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- 轮播图的中的小点 -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <!-- 轮播图的轮播图片 -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active" style="height:400px;">
+                    <img src="/caps/image/lb1.png">
+                    <div class="carousel-caption">
+                        <!-- 轮播图上的文字 -->
+                        <p style="font-size: 60px;font-family: 华文行楷">江南佳丽地 ● 金陵帝王州</p>
+                    </div>
+                </div>
+                <div class="item" style="height:400px;">
+                    <img src="/caps/image/lb2.png">
+                    <div class="carousel-caption">
+                        <!-- 轮播图上的文字 -->
+                        <p style="font-size: 60px;font-family: 华文行楷">江南佳丽地 ● 金陵帝王州</p>
+                    </div>
+                </div>
+                <div class="item" style="height:400px;">
+                    <img src="/caps/image/lb3.png">
+                    <div class="carousel-caption">
+                        <!-- 轮播图上的文字 -->
+                        <p style="font-size: 60px;font-family: 华文行楷">江南佳丽地 ● 金陵帝王州</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 上一张 下一张按钮 -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- 景点门票 -->
+    <div class="container-fluid" style="padding-left: 0px">
+        <div class="col-md-12" style="height:20px;">
+        </div>
+        <div class="col-md-8" style="width:1230px; padding-left: 0px">
+            <div class="mf_box">
+                <div class="mf_tit clearfix">
+                    <span>景点门票</span>
+                </div>
+
+                <div class="js_wrap claerdix">
+                    <p>&nbsp;</p>
+                    <th:block th:each="item:${list}">
+                        <div class="js_con clearfix">
+                            <div class="js_l">
+                                <a href="#"><img th:src="${item.pic}"></a>
+                            </div>
+                            <div class="js_c">
+                                <p>
+                                    <b th:text="${item.name}"></b>
+                                </p>
+                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点主题：</font>
+                                    <th:block th:text="${item.theme}"></th:block> </p>
+                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点地址：</font>
+                                    <th:block th:text="${item.addr}"></th:block></p>
+                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点特色：</font>
+                                    <th:block th:text="${item.feature}"></th:block></p>
+                            </div>
+                            <div class="js_r">
+                                <p>&nbsp;</p>
+                                <p>
+                                    <span class="fn_o">已售</span><b th:text="${item.sales}">${scenic.sales}</b>
+                                    <span class="fn_o">张</span>
+                                </p>
+                                <a th:href="@{'/getScenicTById?id='+${item.id}}" class="btn btn-default btn-info">查看门票</a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 column" style="width:360px;">
+            <div class="clumn" style="width:260px;border:1px solid #E8E8E8">
+                <div class="clumn_tit t01">
+                    <span>南京当地游</span>
+                </div>
+                <div class="clumn _con">
+                    <ul class="clu_ul page_ul">
+                        <li style="height: 3px"><a href="#" style="height: 3px">&nbsp;</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=鼓楼区">鼓楼区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=玄武区">玄武区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=白下区">白下区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=建邺区">建邺区</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=下关区">下关区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=栖霞区">栖霞区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=江宁区">江宁区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=雨花区">雨花区</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=秦淮区">秦淮区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=浦口区">浦口区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=六合区">六合区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=溧水县">溧水县</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=高淳县">高淳县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 column" style="width:260px;border:1px solid #E8E8E8">
+                <img src="/caps/image/fwbz.png">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 宣传图 -->
+    <div class="container-fluid" style="margin-top:30px;">
+        <img src="/caps/image/zmbd.jpg" width="100%"/>
+    </div>
+
+    <div class="clumn" style="width:1600px;border:1px solid #E8E8E8;margin-top: 30px;margin-left: 15px">
+        <div class="clumn_tit t01">
+            <span>美食推荐</span><a href="getFoodPageForUser">更多</a>
+        </div>
+        <div class="container-fluid" style="padding-top: 15px">
+            <div class="col-md-12" >
+                <th:block th:each="item:${listFood}">
+                    <div class="col-md-4 column" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="thumbnail">
+                                    <a href="#"><img th:src="${item.pic}"></a>
+                                    <div class="caption">
+                                        <p>
+                                            <b th:text="${item.name}"></b>
+                                        </p>
+                                        <p>&nbsp;&nbsp;<font style="color: #9d9d9d">美食介绍：</font>
+                                            <th:block th:text="${item.describe}"></th:block></p>
+                                        <p>&nbsp;&nbsp;<font style="color: #9d9d9d">推荐餐馆：</font>
+                                            <th:block th:text="${item.commend}"></th:block></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 引入footer.html -->
+    <th:block th:include="user/footer :: footer"></th:block>
+</div>
+
+</body>
+</html>

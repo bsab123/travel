@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.caps.travel.mapper.ManagerMapper">
+  <resultMap id="BaseResultMap" type="org.caps.travel.entity.Manager">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="managerid" jdbcType="VARCHAR" property="managerid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
+  </resultMap>
+</mapper>

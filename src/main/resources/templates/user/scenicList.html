@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>景点资讯</title>
+    <link rel="shortcut icon" href="image/logo1.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="css/common.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- 引入header.html -->
+    <th:block th:include="user/header :: header"></th:block>
+
+    <!-- 景点门票 -->
+    <div class="container-fluid" style="padding-left: 0px">
+        <div class="col-md-12" style="height:20px;">
+        </div>
+        <div class="col-md-8" style="width:1030px; padding-left: 0px">
+            <div class="mf_box">
+                <div class="mf_tit clearfix">
+                    <span>景点门票</span>
+                </div>
+
+                <div class="js_wrap claerdix">
+                    <p>&nbsp;</p>
+                    <th:block th:each="item:${page.rows}">
+                        <div class="js_con clearfix">
+                            <div class="js_l">
+                                <a href="#"><img th:src="${item.pic}"></a>
+                            </div>
+                            <div class="js_c">
+                                <p>
+                                    <b th:text="${item.name}"></b>
+                                </p>
+                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点主题：</font>
+                                    <th:block th:text="${item.theme}"></th:block> </p>
+                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点地址：</font>
+                                    <th:block th:text="${item.addr}"></th:block></p>
+                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点特色：</font>
+                                    <th:block th:text="${item.feature}"></th:block></p>
+                            </div>
+                            <div class="js_r">
+                                <p>&nbsp;</p>
+                                <p>
+                                    <span class="fn_o">已售</span><b th:text="${item.sales}">${scenic.sales}</b>
+                                    <span class="fn_o">张</span>
+                                </p>
+                                <a th:href="@{'/getScenicTById?id='+${item.id}}" class="btn btn-default btn-info">查看门票</a>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${page.rows.size()==0}">
+                        <img src="image/kong.png" style="width:100%;height:115%;">
+                        <div class="carousel-caption" style="padding-bottom: 150px">
+                            <!-- 图上的文字 -->
+                            <h2>很抱歉！没有找到关于该地址的景区信息！建议您查询其他区县的景区！</h2>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 column" style="width:260px;">
+            <div class="clumn" style="width:260px;border:1px solid #E8E8E8">
+                <div class="clumn_tit t01">
+                    <span>保定当地游</span>
+                </div>
+                <div class="clumn _con">
+                    <ul class="clu_ul page_ul">
+                        <li style="height: 3px"><a href="#" style="height: 3px">&nbsp;</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=新市区">新市区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=北市区">北市区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=南市区">南市区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=满城县">满城县</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=清苑县">清苑县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=涞水县">涞水县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=阜平县">阜平县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=徐水县">徐水县</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=定兴县">定兴县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=高阳县">高阳县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=容城县">容城县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=来源县">涞源县</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=望都县">望都县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=安新县">安新县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=曲阳县">曲阳县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=易县">易县</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=博野县">顺平县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=新市区">博野县</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=涿州市">涿州市</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=蠡县">蠡县</a></li>
+                        <li><a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=定州市">定州市</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=安国市">安国市</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=高碑店">高碑店</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath }/getScenicPageForUser?addr=雄县">雄县 </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 column" style="width:260px;border:1px solid #E8E8E8">
+                <img src="image/fwbz.png">
+            </div>
+        </div>
+        <!--<th:block th:if="${addrParameter == null}">
+            <div class="col-md-12 text-right" style="text-align:center">
+                <p:page url="${pageContext.request.contextPath }/getScenicPageForUser" />
+            </div>
+        </th:block>-->
+    </div>
+
+    <!-- 引入footer.html -->
+    <th:block th:include="user/footer :: footer"></th:block>
+</div>
+</body>
+</html>

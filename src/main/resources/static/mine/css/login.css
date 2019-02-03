@@ -1,0 +1,18 @@
+ .ivu-form-item-error-tip{
+		color:red
+	} 
+.ivu-input{
+	width: 220px;
+	height: 46px;
+	outline: none;
+	display: inline-block;
+	font: 14px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
+	border: none;
+	background: none;
+	line-height: 46px;
+	color:#fff;
+	}
+.login-error{
+	color:red;
+	margin-left:100px;
+}
