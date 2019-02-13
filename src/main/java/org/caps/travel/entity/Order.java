@@ -22,6 +22,36 @@ public class Order {
 
     private Integer state;
 
+    private User user;
+
+    private Ticket ticket;
+
+    private Scenic scenic;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Scenic getScenic() {
+        return scenic;
+    }
+
+    public void setScenic(Scenic scenic) {
+        this.scenic = scenic;
+    }
+
     /**
      * @return id
      */

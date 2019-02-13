@@ -95,7 +95,7 @@
                             </div>
                             <div class="js_r" style="padding-right: 11px; ">
                                 <p>
-                                <form action="${pageContext.request.contextPath }/getOrderInfo" method=post>
+                                <form th:action="|/caps/getOrderInfo?id=${ticket.id}|" method=post>
                                     <input  type="submit" value="购买" class="btn btn-default btn-info" style="padding: 3px 6px;font-size: 11px">
                                 </form>
                                 </p>
@@ -109,7 +109,7 @@
     </div>
     <div class="col-md-4 column" style="width:260px;">
         <div class="col-md-4 column" style="width:260px;border:1px solid #E8E8E8">
-            <img src="image/fwbz.png">
+            <img src="/image/fwbz.png">
         </div>
     </div>
 </div>

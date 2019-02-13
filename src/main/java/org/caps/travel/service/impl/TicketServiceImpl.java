@@ -54,6 +54,6 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket getTicketById(Integer id) {
-        return null;
+        return ticketMapper.getTicketById(id);
     }
 }
