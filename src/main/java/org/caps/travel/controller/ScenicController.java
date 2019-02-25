@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -144,6 +146,15 @@ public class ScenicController {
         //删除
         scenicService.deleteById(id);
         return "OK";
+    }
+
+    @RequestMapping(value="/getScenicList")
+    @ResponseBody
+    public Map<String,Object> getScenicList(){
+        List<Scenic> list =  scenicService.selectScenicList();
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("data",list);
+        return map;
     }
 
 }

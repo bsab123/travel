@@ -1,11 +1,13 @@
 package org.caps.travel.service.impl;
 
+import io.swagger.models.auth.In;
 import org.caps.travel.entity.QueryVo;
 import org.caps.travel.entity.Scenic;
 import org.caps.travel.mapper.ScenicMapper;
 import org.caps.travel.service.ScenicService;
 import org.caps.travel.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.List;
 public class ScenicServiceImpl implements ScenicService {
     @Autowired
     private ScenicMapper scenicMapper;
+    @Value("${pageSize}")
+    private Integer pageSize;
 
     //查询所有景点
     @Override
@@ -34,12 +38,15 @@ public class ScenicServiceImpl implements ScenicService {
     public Page<Scenic> selectPageByQueryVo(QueryVo vo) {
         Page<Scenic> page = new Page<Scenic>();
         //每页数
-        page.setSize(5);
-        vo.setSize(5);
+        page.setSize(this.pageSize);
+        vo.setSize(this.pageSize);
+        
         if (null != vo) {
             // 判断当前页
             if (null != vo.getPage()) {
+                //返回给前端的当页码
                 page.setPage(vo.getPage());
+                //计算出要查询的数据从第几条开始
                 vo.setStartRow((vo.getPage() - 1) * vo.getSize());
             }
             if(null != vo.getName() && !"".equals(vo.getName().trim())){
@@ -52,7 +59,12 @@ public class ScenicServiceImpl implements ScenicService {
                 vo.setAddr(vo.getAddr().trim());
             }
             //总条数
-            page.setTotal(scenicMapper.postCountByQueryVo(vo));
+            Integer totalCount  = scenicMapper.postCountByQueryVo(vo);
+            page.setTotal(totalCount );
+            //总页数
+            Integer totalPage=(totalCount + page.getSize() - 1) / page.getSize();
+            page.setTotalPage(totalPage);
+            //返回给页码的结果集
             page.setRows(scenicMapper.selectPostListByQueryVo(vo));
         }
         return page;

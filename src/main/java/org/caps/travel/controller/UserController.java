@@ -1,9 +1,11 @@
 package org.caps.travel.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.caps.travel.entity.QueryVo;
 import org.caps.travel.entity.User;
 import org.caps.travel.service.UserService;
 import org.caps.travel.utils.MD5Utils;
+import org.caps.travel.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -152,6 +155,84 @@ public class UserController {
             return "redirect:loginPage";//激活成功到界面
         }
         return "redirect:registerPage";//激活失败跳转到注册界面
+    }
+
+    /**
+     * 用户注销
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        //从session中将user删除
+        session.removeAttribute("user");
+
+        //将存储在客户端的cookie删除掉
+        Cookie cookie_username = new Cookie("cookie_username","");
+        cookie_username.setMaxAge(0);
+        //创建存储密码的cookie
+        Cookie cookie_password = new Cookie("cookie_password","");
+        cookie_password.setMaxAge(0);
+
+        response.addCookie(cookie_username);
+        response.addCookie(cookie_password);
+
+        return "user/login";
+    }
+
+
+    /**
+     * 管理员查看所有用户
+     */
+    @RequestMapping(value="/manageVisitor")
+    public String getPageTest(QueryVo vo, Model model){
+        Page<User> page = userService.selectPageByQueryVo(vo);
+        model.addAttribute("page", page);
+        model.addAttribute("name",vo.getName());
+        return "manager/visitor";
+    }
+
+    /**
+     * 管理员禁用用户
+     */
+    @RequestMapping(value = "/updateUserState")
+    public @ResponseBody
+    String updateState(String id){
+        userService.updateStateById(id);
+        return "OK";
+    }
+
+    /**
+     * 用户修改密码
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/updatePwd")
+    public @ResponseBody String updatePassword(String oldpwd,String newpwd,HttpServletRequest request, HttpSession session){
+        User user = (User)session.getAttribute("user");
+        user.setPassword(MD5Utils.md5(oldpwd));
+        User u = userService.confirmUser(user);
+        if(u!=null&&u.getUserid()!=null&&u.getPassword()!=null) {
+            user.setPassword(MD5Utils.md5(newpwd));
+            userService.updateUserInfo(user);
+            return "OK";
+        }
+        return "error";
+    }
+
+    /**
+     * 用户修改个人信息
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/updateInfo")
+    public @ResponseBody String updateInfo(User user,HttpServletRequest request, HttpSession session){
+        User user1 = (User)session.getAttribute("user");
+        user.setUserid(user1.getUserid());
+        userService.updateUserInfo(user);
+        return "OK";
     }
 
 }

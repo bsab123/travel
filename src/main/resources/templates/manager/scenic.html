@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>iToken - 管理员管理</title>
+        <title>Caps- 管理员管理</title>
         <th:block th:include="includes/head :: head"></th:block>
         <link rel="stylesheet" href="css/pager.css">
         <script src="js/pager.js"></script>
 
 
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini" id="scenicBody">
     <section class="content-header">
         <h1>
             景点管理
@@ -27,7 +27,7 @@
                     <div class="box-header">
                         <h3 class="box-title">高级搜索</h3>
                     </div>
-                    <form class="form-inline" action="manageScenic" method="get">
+                    <form class="form-inline" action="manageScenic" method="post">
                     <div class="box-body">
                         <div class="row form-horizontal">
                             <div class="col-xs-12 col-sm-3">
@@ -279,20 +279,21 @@
         </div>
     </body>
     <th:block th:include="includes/foot :: foot"></th:block>
-    <script type="text/javascript">
+    <script th:inline="javascript">
         window.onload = function () {
             new Page({
                 id: 'pagination',
-                pageTotal: 50, //必填,总页数
-                pageAmount: 10,  //每页多少条
-                dataTotal: 500, //总共多少条数据
-                curPage: 1, //初始页码,不填默认为1
-                pageSize: 5, //分页个数,不填默认为5
+                pageTotal: [[${page.totalPage}]], //必填,总页数
+                pageAmount: 3,  //每页多少条
+                dataTotal: [[${page.total}]], //总共多少条数据
+                curPage: [[${page.page}]], //初始页码,不填默认为1
+                pageSize: [[${page.totalPage}]], //分页个数,不填默认为5
                 showPageTotalFlag: true, //是否显示数据统计,不填默认不显示
                 showSkipInputFlag: true, //是否支持跳转,不填默认不显示
                 getPage: function (page) {
-                    //获取当前页数
-                    console.log(page);
+                    var url="manageScenic?page="+page + "&size=" + this.pageSize;
+                    window.location.href=url;
+                    console.log(this.pageSize);
                 }
             })
         };

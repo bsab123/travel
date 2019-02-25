@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Caps - 管理员管理</title>
+    <th:block th:include="includes/head :: head"></th:block>
+    <link rel="stylesheet" href="css/pager.css">
+    <script src="js/pager.js"></script>
+
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<section class="content-header">
+    <h1>
+        用户管理
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">用户管理</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info box-info-search" style="display: none;">
+                <div class="box-header">
+                    <h3 class="box-title">高级搜索</h3>
+                </div>
+                <form class="form-inline" action="manageVisitor" method="post">
+                    <div class="box-body">
+                        <div class="row form-horizontal">
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="form-group">
+                                    <label for="username" class="col-sm-4 control-label">用户名</label>
+
+                                    <div class="col-sm-8">
+                                        <input name="name" id="username" class="form-control" placeholder="用户名" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-right">查询</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">用户列表</h3>
+                </div>
+
+                <div class="box-body">
+                   <!-- <a href="#" type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#addDialog"><i class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;-->
+                    <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-search"></i> 搜索</button>
+                </div>
+
+                <div class="box-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>邮箱</th>
+                            <th>性别</th>
+                            <th>生日</th>
+                            <th>激活状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="row:${page.rows}">
+                            <tr>
+                                <td th:text="${row.username}">${row.id}</td>
+                                <td th:text="${row.name}">${row.theme}</td>
+                                <td th:text="${row.email}">${row.addr}</td>
+                                <td th:text="${row.sex}" style="width:400px;">${row.feature}</td>
+                                <td th:text="${row.birthday}" style="width:400px;">${row.feature}</td>
+                                <th:block th:if="${row.state==1}" >
+                                    <td>已激活</td>
+                                </th:block>
+                                <th:block th:if="${row.state !=1 && row.state !=2}" >
+                                    <td>未激活</td>
+                                </th:block>
+                                <th:block th:if="${row.state==2}" >
+                                    <td>禁用</td>
+                                </th:block>
+                                <td>
+                                    <a href="#" class="btn btn-primary btn-xs" th:onclick="|updateState('${row.userid}')|">禁用</a>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                    <div id="pagination" class="pagination" style="padding-left: 20%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+</body>
+<th:block th:include="includes/foot :: foot"></th:block>
+<script th:inline="javascript">
+    window.onload = function () {
+        new Page({
+            id: 'pagination',
+            pageTotal: [[${page.totalPage}]], //必填,总页数
+            pageAmount: 3,  //每页多少条
+            dataTotal: [[${page.total}]], //总共多少条数据
+            curPage: [[${page.page}]], //初始页码,不填默认为1
+            pageSize: [[${page.totalPage}]], //分页个数,不填默认为5
+            showPageTotalFlag: true, //是否显示数据统计,不填默认不显示
+            showSkipInputFlag: true, //是否支持跳转,不填默认不显示
+            getPage: function (page) {
+                var url="manageVisitor?page="+page + "&size=" + this.pageSize;
+                window.location.href=url;
+                console.log(this.pageSize);
+            }
+        })
+    };
+
+    function updateState(id) {
+        if(confirm('您确定要禁用该用户吗?')) {
+            $.post("updateUserState",{"id":id},function(data){
+                alert("禁用指定用户成功！");
+                window.location.reload();
+            });
+        }
+    }
+
+</script>
+
+</html>

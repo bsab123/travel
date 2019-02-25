@@ -1,305 +1,292 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>南京旅行咨询网</title>
-        <link rel="shortcut icon" href="/caps/image/logo1.png" type="image/x-icon" />
-        <!-- Bootstrap Core CSS -->
-        <link href="/caps/css/bootstrap.min.css" rel="stylesheet">
-        <!-- MetisMenu CSS -->
-        <link href="/caps/css/metisMenu.min.css" rel="stylesheet">
-        <!-- DataTables CSS -->
-        <link href="/caps/css/dataTables.bootstrap.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link href="/caps/css/sb-admin-2.css" rel="stylesheet">
-        <!-- Custom Fonts -->
-        <link href="/caps/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="/caps/css/boot-crm.css" rel="stylesheet" type="text/css">
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        <!-- jQuery -->
-        <script src="/caps/js/jquery.min.js"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="/caps/js/bootstrap.min.js"></script>
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="/caps/js/metisMenu.min.js"></script>
-        <!-- DataTables JavaScript -->
-        <script src="/caps/js/jquery.dataTables.min.js"></script>
-        <script src="/caps/js/dataTables.bootstrap.min.js"></script>
-        <!-- Custom Theme JavaScript -->
-        <script src="/caps/js/sb-admin-2.js"></script>
-    </head>
-    <body>
-        <div id="wrapper">
-            <!-- 引入navigation.jsp -->
-            <th:block th:include="manager/navigation :: navigation"></th:block>
-            <!-- 操作面板 -->
-            <div id="page-wrapper">
-                <div class="row">
-                    <div class="col-lg-12" style="height:15px">
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <form class="form-inline" action="/caps/manageScenic" method="post">
-                            <div class="form-group">
-                                <label for="name">景点名称</label>
-                                <input stytype="text" class="form-control" id="name" th:value="${name }" name="name">
-                            </div>
-                            <div class="form-group">
-                                <label for="addr">区县名称</label>
-                                <input type="text" class="form-control" id="addr" th:value="${addr }" name="addr">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_theme">景点主题</label>
-                                    <select	class="form-control" id="edit_theme" placeholder="景点主题" name="theme">
-                                        <option value="">--请选择--</option>
-                                        <option value="湖光山色" th:selected="${theme=='湖光山色'}">
-                                            湖光山色
-                                        </option>
-                                       <option value="登山徒步"  th:selected="${theme=='登山徒步'}">
-                                            登山徒步
-                                        </option>
-                                        <option value="田园度假" th:selected="${theme=='田园度假'}">
-                                            田园度假
-                                        </option>
-                                        <option value="主题乐园" th:selected="${theme=='主题乐园'}">
-                                            主题乐园
-                                        </option>
-                                        <option value="古迹遗址" th:selected="${theme=='古迹遗址'}">
-                                            古迹遗址
-                                        </option>
-                                    </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">查询</button>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addDialog">添加</a>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">景点信息列表</div>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>景点名称</th>
-                                    <th>主题</th>
-                                    <th>地址</th>
-                                    <th>景点特色</th>
-                                    <th>销售量</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="row:${page.rows}">
-                                    <tr>
-                                        <td th:text="${row.id}">${row.id}</td>
-                                        <td>
-                                            <a th:text="${row.name}" th:href="${row.pic}" target="_Blank">${row.name}</a>
-                                        </td>
-                                        <td th:text="${row.theme}">${row.theme}</td>
-                                        <td th:text="${row.addr}">${row.addr}</td>
-                                        <td th:text="${row.feature}">${row.feature}</td>
-                                        <td th:text="${row.sales}">${row.sales}</td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editDialog" th:onclick="|editScenic(${row.id})|">修改</a>
-                                            <a href="#" class="btn btn-danger btn-xs" th:onclick="|deleteScenic(${row.id})|">删除</a>
-                                        </td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
-                            <!--<div class="col-md-12 text-right" style="text-align:center">
-                                <p:page url="/caps/manageScenic" />
-                            </div>-->
-                            &lt;!&ndash; /.panel-body &ndash;&gt;
-                        </div>
-                        &lt;!&ndash; /.panel &ndash;&gt;
-                    </div>
-                    &lt;!&ndash; /.col-lg-12 &ndash;&gt;
-                </div>
-            </div>
-        </div>
+<head>
+    <title>Caps - 管理员管理</title>
+    <th:block th:include="includes/head :: head"></th:block>
+    <link rel="stylesheet" href="css/pager.css">
+    <script src="js/pager.js"></script>
 
-        <!-- 新增弹框 -->
-        <div class="modal fade" id="addDialog" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">新增景点信息</h4>
-                    </div>
-                    <form action="/caps/addScenic" class="form-horizontal" id="add_form" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <input type="hidden" id="add_id" name="id" value="0"/>
-                        <div class="form-group">
-                                <label for="add_name" class="col-sm-2 control-label">景点名称</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="add_name" placeholder="景点名称" name="name">
-                                </div>
-                            </div>
-                        <div class="form-group">
-                                <label style="float:left;padding:7px 15px 0 27px;">景点主题</label>
-                                <div class="col-sm-10">
-                                    <select	class="form-control" id="edit_theme" placeholder="景点主题" name="theme">
-                                        <option value="">--请选择--</option>
-                                        <option value="湖光山色" th:selected="${theme=='湖光山色'}">
-                                            湖光山色
-                                        </option>
-                                        <option value="登山徒步"  th:selected="${theme=='登山徒步'}">
-                                            登山徒步
-                                        </option>
-                                        <option value="田园度假" th:selected="${theme=='田园度假'}">
-                                            田园度假
-                                        </option>
-                                        <option value="主题乐园" th:selected="${theme=='主题乐园'}">
-                                            主题乐园
-                                        </option>
-                                        <option value="古迹遗址" th:selected="${theme=='古迹遗址'}">
-                                            古迹遗址
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        <div class="form-group">
-                                <label for="add_addr" class="col-sm-2 control-label">景点地址</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="add_addr" placeholder="景点地址" name="addr">
-                                </div>
-                            </div>
-                        <div class="form-group">
-                            <label for="add_feature" class="col-sm-2 control-label">景点特色</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="add_feature" placeholder="景点特色" name="feature">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">景点图片</label>
-                            <div class="col-sm-10">
-                                <input type="file" name="scenicImage"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <input type="submit" class="btn btn-primary">
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <!-- 修改弹框 -->
-        <div class="modal fade" id="editDialog" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">修改景点信息</h4>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" id="TicketBody">
+<section class="content-header">
+    <h1>
+        门票管理
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">门票管理</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info box-info-search" style="display: none;">
+                <div class="box-header">
+                    <h3 class="box-title">高级搜索</h3>
+                </div>
+                <form class="form-inline" action="manageTicket" method="post">
+                    <div class="box-body">
+                        <div class="row form-horizontal">
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="form-group">
+                                    <label for="username" class="col-sm-4 control-label">门票名称</label>
+
+                                    <div class="col-sm-8">
+                                        <input name="name" id="username" class="form-control" placeholder="门票名称" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <form action="/caps/updateScenic" class="form-horizontal" id="add_form" method="post" enctype="multipart/form-data">
-                        <div class="modal-body">
-                            <input type="hidden" id="edit_id" name="id" value="0"/>
-                            <div class="form-group">
-                                <label for="edit_name" class="col-sm-2 control-label">景点名称</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="edit_name" placeholder="景点名称" name="name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_theme" style="float:left;padding:7px 15px 0 27px;">景点主题</label>
-                                <div class="col-sm-10">
-                                    <select	class="form-control" id="edit_theme" placeholder="景点主题" name="theme">
-                                        <option value="">--请选择--</option>
-                                        <option value="湖光山色" th:selected="${theme=='湖光山色'}">
-                                            湖光山色
-                                        </option>
-                                        <option value="登山徒步"  th:selected="${theme=='登山徒步'}">
-                                            登山徒步
-                                        </option>
-                                        <option value="田园度假" th:selected="${theme=='田园度假'}">
-                                            田园度假
-                                        </option>
-                                        <option value="主题乐园" th:selected="${theme=='主题乐园'}">
-                                            主题乐园
-                                        </option>
-                                        <option value="古迹遗址" th:selected="${theme=='古迹遗址'}">
-                                            古迹遗址
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_addr" class="col-sm-2 control-label">景点地址</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="edit_addr" placeholder="景点地址" name="addr">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_feature" class="col-sm-2 control-label">景点特色</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="edit_feature" placeholder="景点特色" name="feature">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">景点图片</label>
-                                <div class="col-sm-10">
-                                    <input type="file" name="scenicImage"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <input type="submit" class="btn btn-primary">
-                        </div>
-                    </form>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-right">查询</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">门票列表</h3>
+                </div>
+
+                <div class="box-body">
+                    <a href="#" class="btn btn-sm btn-default" data-toggle="modal" data-target="#addDialog"  onclick="getScenicList()"><i class="fa fa-plus"></i> 添加</a>
+
+                   <!-- <a href="#" type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#addDialog"><i class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;-->
+                    <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-search"></i> 搜索</button>
+                </div>
+
+                <div class="box-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-md-1">ID</th>
+                            <th class="col-md-2">景点名称</th>
+                            <th class="col-md-2">门票名称</th>
+                            <th class="col-md-1">门市价格</th>
+                            <th class="col-md-1">网站价格</th>
+                            <th class="col-md-4">门票说明</th>
+                            <th class="col-md-1">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="row:${page.rows}">
+                            <tr>
+                                <td th:text="${row.id}">${row.id}</td>
+                                <td th:text="${row.scenic.name}">${row.theme}</td>
+                                <td th:text="${row.name}">${row.addr}</td>
+                                <td th:text="${row.dprice}" style="width:400px;">${row.feature}</td>
+                                <td th:text="${row.mprice}" style="width:400px;">${row.feature}</td>
+                                <td th:text="${row.explain}" style="width:400px;">${row.feature}</td>
+                                <td>
+                                    <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editDialog" th:onclick="|editTicket(${row.id})|">修改</a>
+                                    <a href="#" class="btn btn-danger btn-xs" th:onclick="|deleteTicket(${row.id})|">删除</a>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                    <div id="pagination" class="pagination" style="padding-left: 20%"></div>
                 </div>
             </div>
         </div>
-    </body>
-    <script type="text/javascript">
-        function deleteScenic(id) {
-            if(confirm('您确定要删除该景点信息吗?')) {
-                $.post("/caps//deleteScenic",{"id":id},function(data){
+    </div>
+</section>
+
+<!-- 新增弹框 -->
+<div class="modal fade" id="addDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">新增景点信息</h4>
+            </div>
+            <form action="/caps/addTicket" class="form-horizontal" id="add_form" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="add_id" name="id" value="0"/>
+                    <div class="form-group">
+                        <label for="add_name" class="col-sm-2 control-label">门票名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="add_name" placeholder="门票名称" name="name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="add_explain" class="col-sm-2 control-label">门票说明</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="add_explain" placeholder="门票说明" name="explain">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_dprice" class="col-sm-2 control-label">门市价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="add_dprice" placeholder="门市价格" name="dprice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_mprice" class="col-sm-2 control-label">网站价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="add_mprice" placeholder="网站价格" name="mprice">
+                        </div>
+                    </div>
+                    <div class="form-group" id="test">
+                        <label for="add_scenicname" class="col-sm-2 control-label" style="margin-right: 15px">所属景点</label>
+                        <select	class="form-control" id="add_scenicname" placeholder="所属景点" style="width:466px;padding-right: 15px" name="fid">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <input type="submit" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 修改弹框 -->
+<div class="modal fade" id="editDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="alterModalLabel">修改门票信息</h4>
+            </div>
+            <form action="/caps/updateTicket" class="form-horizontal" id="alter_form">
+                <div class="modal-body">
+                    <input type="hidden" id="edit_id" name="id" value="0"/>
+                    <div class="form-group">
+                        <label for="edit_name" class="col-sm-2 control-label">门票名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit_name" placeholder="门票名称" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_explain" class="col-sm-2 control-label">门票说明</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit_explain" placeholder="门票说明" name="explain">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_dprice" class="col-sm-2 control-label">门市价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit_dprice" placeholder="门市价格" name="dprice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_mprice" class="col-sm-2 control-label">网站价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit_mprice" placeholder="网站价格" name="mprice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_scenicName" class="col-sm-2 control-label">所属景点</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit_scenicName" placeholder="所属景点" name="mprice">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <input type="submit" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="includes/foot :: foot"></th:block>
+<script th:inline="javascript">
+    window.onload = function () {
+        new Page({
+            id: 'pagination',
+            pageTotal: [[${page.totalPage}]]+1, //必填,总页数
+            pageAmount: 3,  //每页多少条
+            dataTotal: [[${page.total}]], //总共多少条数据
+            curPage: [[${page.page}]], //初始页码,不填默认为1
+            pageSize: [[${page.totalPage}]], //分页个数,不填默认为5
+            showPageTotalFlag: true, //是否显示数据统计,不填默认不显示
+            showSkipInputFlag: true, //是否支持跳转,不填默认不显示
+            getPage: function (page) {
+                var url="manageTicket?page="+page + "&size=" + this.pageSize;
+                window.location.href=url;
+                console.log(this.pageSize);
+            }
+        })
+    };
+    /**
+     * 删除
+     * @param id
+     */
+    function deleteTicket(id) {
+        console.log(id);
+        if(confirm('您确定要删除该景点信息吗?')) {
+            $.post("/caps/deleteTicket",{"id":id},function(data){
+                if(data==="OK"){
                     alert("景点信息删除成功！");
                     window.location.reload();
-                });
-            }
-        }
-
-
-        function editScenic(id) {
-            console.log(id)
-            $.ajax({
-                type:"get",
-                url:"/caps/getScenicById",
-                data:{"id":id},
-                success:function(data) {
-                    $("#edit_id").val(data.id);
-                    $("#edit_name").val(data.name);
-                    $("#edit_theme").val(data.theme);
-                    $("#edit_addr").val(data.addr);
-                    $("#edit_feature").val(data.feature);
+                }
+                else{
+                    alert("景点信息删除失败！");
                 }
             });
         }
-    </script>
+    }
+
+    function getScenicList() {//获取下拉景点列表
+        console.log();
+        $.ajax({
+            url: "getScenicList",//写你自己的方法，返回map，我返回的map包含了两个属性：data：集合，total：集合记录数量，所以后边会有data.data的写法。。。
+            // 数据发送方式
+            type: "get",
+            // 接受数据格式
+            dataType: "json",
+            // 要传递的数据
+            data: 'data',
+            // 回调函数，接受服务器端返回给客户端的值，即result值
+            success: function (data) {
+                $.each(data.data, function (i) {
+                    $("<option value='" + data.data[i].id + "'>" + data.data[i].name + "</option>")
+                        .appendTo("#add_scenicname");
+                });
+            },
+            error: function (data) {
+                alert("查询景点列表失败" + data);
+            }
+        })
+    }
+
+    /**
+     * 修改
+     * @param id
+     */
+    function editTicket(id) {
+        console.log(id)
+        $.ajax({
+            type:"get",
+            url:"/caps/getTicketById",
+            data:{"id":id},
+            success:function(data) {
+                console.log(data);
+                $("#edit_id").val(data.id);
+                $("#edit_name").val(data.name);
+                $("#edit_explain").val(data.explain);
+                $("#edit_dprice").val(data.dprice);
+                $("#edit_mprice").val(data.mprice);
+                $("#edit_scenicName").val(data.scenic.name);
+                /*$("#edit_TicketImage").val(data.pic);*/
+            }
+        });
+    }
+</script>
+
 </html>

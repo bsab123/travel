@@ -4,10 +4,11 @@ import java.util.List;
 
 public class Page<T> {
     
-	private int total;
-	private int page;
-	private int size;
-    private List<T> rows;
+	private int total;//总记录数
+	private int page;//当前页
+	private int size;//每页长度
+	private int totalPage ;
+    private List<T> rows;//数据
 	public int getTotal() {
 		return total;
 	}
@@ -32,7 +33,12 @@ public class Page<T> {
 	public void setRows(List<T> rows) {
 		this.rows = rows;
 	}
-    
-	
-    
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
 }

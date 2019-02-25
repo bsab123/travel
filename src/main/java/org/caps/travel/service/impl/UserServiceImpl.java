@@ -6,6 +6,7 @@ import org.caps.travel.mapper.UserMapper;
 import org.caps.travel.service.UserService;
 import org.caps.travel.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -21,6 +22,10 @@ import tk.mybatis.mapper.entity.Example;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Value("${pageSize}")
+    private Integer pageSize;
+
 
     @Override
     public User confirmUser(User user) {
@@ -64,8 +69,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> selectPageByQueryVo(QueryVo vo) {
         Page<User> page=new Page<>();
-        page.setSize(5);
-        vo.setSize(5);
+        //每页数
+        page.setSize(this.pageSize);
+        vo.setSize(this.pageSize);
         if (null != vo) {
             if(null != vo.getName() && !"".equals(vo.getName().trim())){
                 vo.setName(vo.getName().trim());
@@ -75,8 +81,14 @@ public class UserServiceImpl implements UserService {
                 page.setPage(vo.getPage());
                 vo.setStartRow((vo.getPage() -1)*vo.getSize());
             }
+
             //总条数
-            page.setTotal(userMapper.customerCountByQueryVo(vo));
+            Integer totalCount  = userMapper.customerCountByQueryVo(vo);
+            page.setTotal(totalCount );
+            //总页数
+            Integer totalPage=(totalCount + page.getSize() - 1) / page.getSize();
+            page.setTotalPage(totalPage);
+            //总条数
             page.setRows(userMapper.selectCustomerListByQueryVo(vo));
         }
         return page;

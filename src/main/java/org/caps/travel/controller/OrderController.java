@@ -229,6 +229,23 @@ public class OrderController {
     @ResponseBody
     public String updateState(Integer id){
         orderService.updateStateById(id);
-        return "OK";
+        return "manager/order";
     }
+
+    /**
+     *管理员查看所有订单
+     * @param model
+     * @param vo
+     * @return
+     */
+    @RequestMapping(value = "/manageOrder")
+    public String getOrderPage(Model model,QueryVo vo){
+        Page<Order> page = orderService.selectOrderPageByQueryVo(vo);
+        model.addAttribute("page", page);
+        model.addAttribute("name",vo.getName());
+        return "manager/order";
+    }
+
+
+
 }

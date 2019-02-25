@@ -81,3 +81,6 @@ file:
   uploadFolder: I:/upload/
   staticAccessPath: /upload/**
 
+#每页显示数据数
+pageSize: 3
+

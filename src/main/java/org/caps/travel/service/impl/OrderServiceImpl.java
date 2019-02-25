@@ -6,6 +6,7 @@ import org.caps.travel.mapper.OrderMapper;
 import org.caps.travel.service.OrderService;
 import org.caps.travel.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
+    @Value("${pageSize}")
+    private Integer pageSize;
 
     @Override
     public List<Order> selectOrderListByFid(String tid) {
@@ -30,8 +33,9 @@ public class OrderServiceImpl implements OrderService {
     public Page<Order> selectOrderPageByQueryVo(QueryVo vo) {
         Page<Order> page = new Page<Order>();
         //每页数
-        page.setSize(5);
-        vo.setSize(5);
+        page.setSize(this.pageSize);
+        vo.setSize(this.pageSize);
+
         if (null != vo) {
             // 判断当前页
             if (null != vo.getPage()) {
@@ -45,7 +49,12 @@ public class OrderServiceImpl implements OrderService {
                 vo.setUserid(vo.getUserid().trim());
             }
             //总条数
-            page.setTotal(orderMapper.postCountByQueryVo(vo));
+            Integer totalCount  = orderMapper.postCountByQueryVo(vo);
+            page.setTotal(totalCount );
+            //总页数
+            Integer totalPage=(totalCount + page.getSize() - 1) / page.getSize();
+            page.setTotalPage(totalPage);
+
             page.setRows(orderMapper.selectPostListByQueryVo(vo));
         }
         return page;
