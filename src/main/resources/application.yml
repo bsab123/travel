@@ -52,7 +52,6 @@ server:
   port: 8501
   servlet:
     context-path: /caps
-
 # MyBatis Config properties
 mybatis:
   type-aliases-package: org.caps.travel.entity
@@ -68,4 +67,17 @@ mybatis:
 #  pattern:
 #    file: .%d{yyyy-MM-dd} [%thread]  %-5level  %logger{50}  %msg%n
 #    console: .%d{yyyy-MM-dd} === [%thread] === %-5level === %logger{50} ==== %msg%n
+
+callback: http://localhost:8080/callback
+keyValue: 69cl522AV6q613Ii4W6u8K6XuW8vM1N6bFgyv769220IuYe9u37N4y7rI4Pl
+p1_MerId: 10001126856
+
+#文件上传目录
+UPLOADED_FOLDER: I:\upload\
+
+#文件上传目录
+#静态资源对外暴露的访问路径
+file:
+  uploadFolder: I:/upload/
+  staticAccessPath: /upload/**
 

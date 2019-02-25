@@ -15,28 +15,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-   /* public List<Order> selectOrderListByFid(String tid) {
+    @Override
+    public List<Order> selectOrderListByFid(String tid) {
         return orderMapper.selectOrderList(tid);
-    }*/
-
-    @Override
-    public Page<Order> selectOrderPageByQueryVo(QueryVo vo) {
-        return null;
-    }
-
-    @Override
-    public List<Order> selectOrderListByFid(String fid) {
-        return null;
-    }
-
-    @Override
-    public void updateStateById(Integer id) {
-
-    }
-
-    @Override
-    public void updateStateToPayById(Integer id) {
-
     }
 
     /**
@@ -45,7 +26,8 @@ public class OrderServiceImpl implements OrderService {
      * @param vo
      * @return
      */
-/*    public Page<Order> selectOrderPageByQueryVo(QueryVo vo) {
+    @Override
+    public Page<Order> selectOrderPageByQueryVo(QueryVo vo) {
         Page<Order> page = new Page<Order>();
         //每页数
         page.setSize(5);
@@ -69,13 +51,15 @@ public class OrderServiceImpl implements OrderService {
         return page;
     }
 
+    @Override
     public void updateStateById(Integer id){
         orderMapper.updateStateById(id);
     }
 
+    @Override
     public void updateStateToPayById(Integer id){
         orderMapper.updateStateToPayById(id);
-    }*/
+    }
 
     @Override
     public int insertOrder(Order order){
@@ -83,11 +67,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrderByNo(String no) {
-        return null;
-    }
-
-  /*  public Order getOrderByNo(String no){
+    public Order getOrderByNo(String no){
         return orderMapper.getOrderByNo(no);
-    }*/
+    }
 }

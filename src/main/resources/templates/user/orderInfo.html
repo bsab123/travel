@@ -26,59 +26,59 @@
     <th:block th:include="user/header :: header"></th:block>
 
     <div class="container"
-         style="width: 98%;height:50%; background: url('/caps/image/zhucedenglu.PNG');">
+         style="width: 98%;height:50%;">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style=" width: 650px; padding: 10px 100px; margin: 30px; border: 7px solid #ccc;">
                 <h2 style="text-align: center">待支付订单信息</h2>
-                <form id="myform" class="form-horizontal" action="/payForOrder" method="post" style="margin-top: 5px;">
+                <form id="myform" class="form-horizontal" action="/caps/payForOrder" method="post" style="margin-top: 5px;">
                     <div class="form-group">
                         <label style="text-align: left" class="col-sm-3 control-label">订单编号</label>
                         <div class="col-sm-9">
                             <label style="padding-top: 7px" th:text="${order.no}">${order.no}</label>
                         </div>
                     </div>
-                   <!-- <div class="form-group">
-                        <label for="date" style="text-align: left" class="col-sm-3 control-label">门票名称</label>
+                    <div class="form-group">
+                        <label style="text-align: left" class="col-sm-3 control-label">门票名称</label>
                         <div class="col-sm-9">
-                            <label style="padding-top: 7px">${name}</label>
+                            <label style="padding-top: 7px" th:text="${name}">${name}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" style="text-align: left" class="col-sm-3 control-label">门票单价</label>
+                        <label style="text-align: left" class="col-sm-3 control-label">门票单价</label>
                         <div class="col-sm-9">
-                            <label style="padding-top: 7px">${mprice}</label>
+                            <label style="padding-top: 7px" th:text="${mprice}">${mprice}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="usercaption" style="text-align: left" class="col-sm-3 control-label">门票数量</label>
+                        <label style="text-align: left" class="col-sm-3 control-label">门票数量</label>
                         <div class="col-sm-9">
-                            <label style="padding-top: 7px">${order.num}</label>
+                            <label style="padding-top: 7px" th:text="${order.num}">${order.num}</label>
                         </div>
                     </div>
                     <div class="form-group opt">
-                        <label for="inlineRadio1" style="text-align: left" class="col-sm-3 control-label">应付金额</label>
+                        <label style="text-align: left" class="col-sm-3 control-label">应付金额</label>
                         <div class="col-sm-9">
-                            <label style="padding-top: 7px">${order.paid}</label>
+                            <label style="padding-top: 7px" th:text="${order.paid}">${order.paid}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="date" style="text-align: left" class="col-sm-3 control-label">选择银行</label>
+                        <label style="text-align: left" class="col-sm-3 control-label">选择银行</label>
                         <div class="col-sm-9" style="padding-top: 5px">
                             <input type="radio" name="pd_FrpId" value="ICBC-NET-B2C" checked="checked" />
-                            <img src="../image/bank_img/icbc.bmp" style="width: 30%" align="middle" />&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="/caps/image/bank_img/icbc.bmp" style="width: 30%" align="middle" />&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="radio" name="pd_FrpId" value="CCB-NET-B2C" />
-                            <img src="../image/bank_img/ccb.bmp" style="width: 30%" align="middle" />
+                            <img src="/caps/image/bank_img/ccb.bmp" style="width: 30%" align="middle" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="date" style="text-align: left" class="col-sm-3 control-label">操作按钮</label>
+                        <label style="text-align: left" class="col-sm-3 control-label">操作按钮</label>
                         <div class="col-sm-9" style="padding-top: 5px">
-                            <input type="hidden" name="no" value="${order.no}">
-                            <input type="hidden" name="paid" value="${order.paid}">
+                            <input type="hidden" name="no" th:value="${order.no}">
+                            <input type="hidden" name="paid" th:value="${order.paid}">
                             <input  type="submit" value="立即支付" class="btn btn-default btn-info">
                         </div>
-                    </div>-->
+                    </div>
                 </form>
             </div>
 

@@ -81,4 +81,14 @@ public class IndexController {
         model.addAttribute("listFood",listFood);
         return "user/index";
     }
+
+    /**
+     * 加载地图主界面
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/map")
+    public String map(){
+        return "user/map";
+    }
 }

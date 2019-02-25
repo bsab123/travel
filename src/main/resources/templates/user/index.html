@@ -76,30 +76,46 @@
                 <div class="js_wrap claerdix">
                     <p>&nbsp;</p>
                     <th:block th:each="item:${list}">
-                        <div class="js_con clearfix">
-                            <div class="js_l">
-                                <a href="#"><img th:src="${item.pic}"></a>
-                            </div>
-                            <div class="js_c">
-                                <p>
-                                    <b th:text="${item.name}"></b>
-                                </p>
-                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点主题：</font>
-                                    <th:block th:text="${item.theme}"></th:block> </p>
-                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点地址：</font>
-                                    <th:block th:text="${item.addr}"></th:block></p>
-                                <p>&nbsp;&nbsp;<font style="color: #9d9d9d">景点特色：</font>
-                                    <th:block th:text="${item.feature}"></th:block></p>
-                            </div>
-                            <div class="js_r">
-                                <p>&nbsp;</p>
-                                <p>
-                                    <span class="fn_o">已售</span><b th:text="${item.sales}">${scenic.sales}</b>
-                                    <span class="fn_o">张</span>
-                                </p>
-                                <a th:href="@{'/getScenicTById?id='+${item.id}}" class="btn btn-default btn-info">查看门票</a>
-                            </div>
-                        </div>
+                        <div class="row" style="margin-top: 20px">
+                                <div class="col-md-6">
+                                    <div style="height: 320px; width: 500px;">
+                                        <a href="#"> <img th:src="${item.pic }" style="width:100%; height:100%;"></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row" style="margin-top: 60px">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <h3 th:text="${item.name}"></h3>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <h4>&nbsp;&nbsp;<font style="color: #9d9d9d">景点主题：</font>
+                                                    <th:block th:text="${item.theme}"></th:block> </h4>
+                                            </div>
+                                            <div class="row">
+                                                <h4>&nbsp;&nbsp;<font style="color: #9d9d9d">景点地址：</font>
+                                                    <th:block th:text="${item.addr}"></th:block></h4>
+                                            </div>
+                                            <div class="row">
+                                                <h4>&nbsp;&nbsp;<font style="color: #9d9d9d">景点特色：</font>
+                                                    <th:block th:text="${item.feature}"></th:block></h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>&nbsp;</p>
+                                            <p>
+                                                <span class="fn_o">已售</span><b th:text="${item.sales}">${scenic.sales}</b>
+                                                <span class="fn_o">张</span>
+                                            </p>
+                                            <a th:href="@{'/getScenicTById?id='+${item.id}}" class="btn btn-default btn-info">查看门票</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                        <br>
+                        <br>
+                        <hr/>
                     </th:block>
                 </div>
             </div>

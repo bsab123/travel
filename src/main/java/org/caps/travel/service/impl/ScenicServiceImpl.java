@@ -7,7 +7,6 @@ import org.caps.travel.service.ScenicService;
 import org.caps.travel.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -61,17 +60,17 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void addScenic(Scenic scenic) {
-
+        scenicMapper.addScenic(scenic);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        scenicMapper.deleteById(id);
     }
 
     @Override
     public int updateScenic(Scenic scenic) {
-        return 0;
+        return scenicMapper.updateScenic(scenic);
     }
 
     @Override
@@ -81,6 +80,6 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public int updateScenicSales(Integer id) {
-        return 0;
+        return scenicMapper.updateScenicSales(id);
     }
 }

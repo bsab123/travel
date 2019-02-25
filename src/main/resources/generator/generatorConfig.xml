@@ -7,7 +7,7 @@
     <!-- 引入数据库连接配置 -->
     <properties resource="jdbc.properties"/>
 
-    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <context id="Mysql" targetRuntime="M   yBatis3Simple" defaultModelType="flat">
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
