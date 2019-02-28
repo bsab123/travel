@@ -29,6 +29,7 @@ public class CheckImageController {
         String verifyCodeValue = drawImg(output);
 
         session.setAttribute("verifyCodeValue", verifyCodeValue);
+        System.out.println(session.getAttribute("verifyCodeValue"));
 
         try {
             ServletOutputStream out = response.getOutputStream();

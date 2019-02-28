@@ -49,6 +49,7 @@ public class UserController {
     public String userLogin(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response, User user){
         String inputVerifyCode=request.getParameter("verifyCode");
         String verifyCodeValue=(String) session.getAttribute("verifyCodeValue");
+        System.out.println(session.getAttribute("verifyCodeValue"));
         //判断输入的验证码和生成后存在session中的验证码是否一致
         if(verifyCodeValue.equals(inputVerifyCode.toUpperCase())){
             //输入的密码加密后与数据库进行密文比对
