@@ -24,7 +24,7 @@
                 <div>
                     <h3>管理员登录|MANAGER LOGIN</h3>
                     <div>&nbsp;</div>
-                    <form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/managerLogin">
+                    <form class="form-horizontal" name="fileForm" method="post" action="managerLogin">
                         <div class="form-group input_outer">
                             <input type="text" class="text" id="name" name="name"
                                    placeholder="请输入账号">
@@ -33,7 +33,7 @@
                             <input type="password" class="text"  name="password"
                                    placeholder="请输入密码">
                         </div>
-                        <div class="mb2"><a class="act-but submit" style="color: #FFFFFF" onclick="loginSubmit">登录</a></div>
+                        <div class="mb2"><a class="act-but submit" style="color: #FFFFFF" onclick="submitBtnClick()">登录</a></div>
                     </form>
                 </div>
             </div>
@@ -45,5 +45,10 @@
 <script src="/caps/mine/js/window.js" type="text/javascript"></script>
 <script src="/caps/mine/js/prinple.js" type="text/javascript"></script>
 <div style="text-align:center"/>
+<script type="text/javascript">
+    function submitBtnClick(){
+        document.fileForm.submit();
+    }
+</script>
 </body>
 </html>

@@ -6,11 +6,14 @@ import org.caps.travel.entity.User;
 import org.caps.travel.service.UserService;
 import org.caps.travel.utils.MD5Utils;
 import org.caps.travel.utils.Page;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,10 +34,19 @@ import java.util.UUID;
  */
 @Controller
 public class UserController {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService userService;
     @Autowired
     private JavaMailSender mailSender;
+
+    @PostMapping(value = "/managerLogin")
+    public String managerLogin(String name,String password){
+        logger.info(name+password);
+        return null;
+
+    }
 
     /**
      * 用户登录
