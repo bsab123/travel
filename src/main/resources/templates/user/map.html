@@ -31,15 +31,13 @@
 </body>
 <script type="text/javascript">
 
-    /*window.onload = function () {
+    window.onload = function () {
         //三种驾车策略：最少时间，最短距离，避开高速
         var routePolicy = [BMAP_DRIVING_POLICY_LEAST_TIME,BMAP_DRIVING_POLICY_LEAST_DISTANCE,BMAP_DRIVING_POLICY_AVOID_HIGHWAYS];
         $("#resultstep").css("display","block");
         var start = $("#startId").val("南京市江宁区金陵科技学院");
-        var end = $("#destinationId").val("南京市雨花台区南京南站");
+        var end = $("#destinationId").val("夫子庙");
         console.log(end)
-        /!*var start = "南京市江宁区金陵科技学院";
-        var end = "南京市雨花台区南京南站";*!/
         //alert(start+"--"+end);
         map.clearOverlays();
         search(start,end,routePolicy[0]);
@@ -79,7 +77,7 @@
             },
         });
         transit.search(start,end);
-    };*/
+    };
     //我所在位置119.98186101,31.77139674
     // 百度地图API功能
     var map = new BMap.Map("allmap");    // 创建Map实例

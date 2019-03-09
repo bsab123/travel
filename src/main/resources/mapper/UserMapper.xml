@@ -30,4 +30,20 @@
     </where>
     limit #{startRow},#{size}
   </select>
+
+  <select id="selectSolrAll" resultType="org.caps.travel.entity.SolrResult">
+       SELECT
+          `user`.userid AS tr_userid,
+          `user`.username AS tr_username,
+          `user`.`password` AS tr_password,
+          `user`.`name` AS tr_name,
+          `user`.email AS tr_email,
+          `user`.telephone AS tr_telephone,
+          `user`.birthday AS tr_birthday,
+          `user`.sex AS tr_sex,
+          `user`.state AS tr_state,
+          `user`.`code` AS tr_code
+       FROM
+          `user`
+    </select>
 </mapper>

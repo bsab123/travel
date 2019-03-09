@@ -10,6 +10,9 @@ spring:
           starttls:
             enable: true
             required: true
+  data:
+    solr:
+      host: http://139.224.117.172:8983/solr/ik_core
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

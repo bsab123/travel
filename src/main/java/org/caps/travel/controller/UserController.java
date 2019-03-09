@@ -3,25 +3,25 @@ package org.caps.travel.controller;
 import io.swagger.annotations.ApiOperation;
 import org.caps.travel.entity.QueryVo;
 import org.caps.travel.entity.User;
+import org.caps.travel.service.SolrService;
 import org.caps.travel.service.UserService;
 import org.caps.travel.utils.MD5Utils;
 import org.caps.travel.utils.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -35,11 +35,15 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
+    @Value("${pageSize}")
+    private Integer pageSize;
     Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService userService;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private SolrService solrService;
 
 
     /**
@@ -190,16 +194,7 @@ public class UserController {
     }
 
 
-    /**
-     * 管理员查看所有用户
-     */
-    @RequestMapping(value="/manageVisitor")
-    public String getPageTest(QueryVo vo, Model model){
-        Page<User> page = userService.selectPageByQueryVo(vo);
-        model.addAttribute("page", page);
-        model.addAttribute("name",vo.getName());
-        return "manager/visitor";
-    }
+
 
     /**
      * 管理员禁用用户
@@ -241,5 +236,18 @@ public class UserController {
         userService.updateUserInfo(user);
         return "OK";
     }
+
+
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    public String search(
+            @RequestParam(required = true) String query,
+            Model model) {
+        int size=100;
+        int page=1;
+        List<User> tbItemResults = solrService.search(query, page, size);
+        model.addAttribute("page", tbItemResults);
+        return "manager/visitor";
+    }
+
 
 }
