@@ -41,12 +41,6 @@ public class UserController {
     @Autowired
     private JavaMailSender mailSender;
 
-    @PostMapping(value = "/managerLogin")
-    public String managerLogin(String name,String password){
-        logger.info(name+password);
-        return null;
-
-    }
 
     /**
      * 用户登录

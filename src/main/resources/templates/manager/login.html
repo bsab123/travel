@@ -33,7 +33,7 @@
                             <input type="password" class="text"  name="password"
                                    placeholder="请输入密码">
                         </div>
-                        <div class="mb2"><a class="act-but submit" style="color: #FFFFFF" onclick="submitBtnClick()">登录</a></div>
+                        <div class="mb2"><a class="act-but submit" style="color: #FFFFFF" th:onclick="|submitBtnClick()|">登录</a></div>
                     </form>
                 </div>
             </div>
@@ -45,10 +45,17 @@
 <script src="/caps/mine/js/window.js" type="text/javascript"></script>
 <script src="/caps/mine/js/prinple.js" type="text/javascript"></script>
 <div style="text-align:center"/>
-<script type="text/javascript">
+<script th:inline="javascript">
+    window.onload = function () {
+        var info=[[${errorInfo}]];
+        if (info !=null){
+            alert(info)
+        }
+    };
     function submitBtnClick(){
         document.fileForm.submit();
     }
 </script>
+
 </body>
 </html>
