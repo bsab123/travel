@@ -1,2 +1,2 @@
 # travel
-caps  
+旅游
